@@ -1,14 +1,26 @@
-import { processFontFamily } from 'expo-font';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { Button, StyleSheet, Text, View } from "react-native";
+import { useAuth } from "../hooks/Auth";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Aplicativo pronto pra usar</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    const { signIn, signOut,user } = useAuth(); // Adicionada a variável 'user' para verificar o estado atual
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Aplicativo Pronto para Usar</Text>
+            <Button 
+                title="Signin Super" 
+                onPress={() => signIn({ email: "super@gmail.com", password: "Super123!" })} // Verifique a senha 'Super123!'
+            />
+            <Button 
+                title="Signout" 
+                onPress={() => signOut()} 
+            />
+           
+            
+            <StatusBar style="auto" />
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -18,9 +30,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title:{
-    FontFamily:"regular",
-    fontSize:20,
-
+  title: {
+    fontFamily: "regular",
+    fontSize: 20,
   },
 });
